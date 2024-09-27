@@ -230,7 +230,7 @@ const Home = () => {
                     <i className="fa-solid fa-clock fa-lg"></i> Working Hours
                   </h1>
                   <p>Start at : 10:00am</p>
-                  <p>End at : 10:00am</p>
+                  <p>End at : 10:00pm</p>
                   <p>Enjoy!</p>
                 </div>
               </div>
