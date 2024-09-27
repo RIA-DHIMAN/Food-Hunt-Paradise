@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const Home = () => {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    try {
+      const response = await fetch("https://dummyjson.com/recipes");
+      const newData = await response.json();
+      setRecipes(newData.recipes);
+    } catch (error) {
+      console.log("Error fetching recipes:", error);
+    }
+  };
   return (
     <>
       <div>
@@ -90,11 +105,12 @@ const Home = () => {
               </h1>
               <br />
               <p className="lead">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-                voluptas veritatis earum?
+                Indulge in authentic Italian cuisine made with fresh ingredients
+                and traditional recipes.
               </p>
               <p className="lead">
-                Voluptas, dolores? Laboriosam nobis magnam sunt eaque quod!
+                Experience the rich flavors of Italy in every bite, from our
+                handmade pasta to our wood-fired pizzas.
               </p>
             </div>
             <hr className="text-danger" />
@@ -102,554 +118,79 @@ const Home = () => {
           <section id="pizza-menu" className="py-5">
             <div className="container">
               <div className="row text-center">
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://www.vegrecipesofindia.com/wp-content/uploads/2018/05/paneer-pizza-recipe-1.jpg"
-                        className="img-fluid"
-                        alt="Pizza 1"
-                      />
+                {recipes.map((recipe, index) => (
+                  <>
+                    <div className="col-md-3 mb-4" key={index}>
+                      <div className="pizza-box">
+                        <div className="image-container">
+                          <img
+                            src={recipe.image}
+                            className="img-fluid"
+                            alt="Pizza 1"
+                          />
+                        </div>
+                        <h5 className="mt-3">{recipe.name}</h5>
+                        <p>{recipe.title}</p>
+                        <div className="button-container">
+                          <button className="btn btn-warning mb-2 px-4">
+                            ₹299
+                          </button>
+                          <button
+                            className="btn btn-danger add-to-cart"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalMargherita">
+                            Let's Enjoy Meal
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <h5 className="mt-3">Classic Margherita</h5>
-                    <p>Fresh mozzarella, tomatoes, and basil</p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹299
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalMargherita">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
 
-                <div
-                  className="modal fade"
-                  id="modalMargherita"
-                  tabindex="-1"
-                  aria-labelledby="modalMargheritaLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalMargheritaLabel">
-                          Classic Margherita
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://www.vegrecipesofindia.com/wp-content/uploads/2018/05/paneer-pizza-recipe-1.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Pizza 1"
-                        />
-                        <p>
-                          Enjoy a classic Margherita pizza with fresh
-                          mozzarella, tomatoes, and basil for the perfect taste.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://static.toiimg.com/thumb/54699659.cms?imgsize=2071173&width=800&height=800"
-                        className="img-fluid"
-                        alt="Pizza 2"
-                      />
-                    </div>
-                    <h5 className="mt-3">Pepperoni Feast</h5>
-                    <p>Loaded with pepperoni and cheese</p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹399
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalPepperoni">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalPepperoni"
-                  tabindex="-1"
-                  aria-labelledby="modalPepperoniLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalPepperoniLabel">
-                          Pepperoni Feast
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://static.toiimg.com/thumb/54699659.cms?imgsize=2071173&width=800&height=800"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Pizza 2"
-                        />
-                        <p>
-                          A perfect pizza loaded with pepperoni and melted
-                          cheese for meat lovers.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
+                    <div
+                      className="modal fade"
+                      id="modalMargherita"
+                      tabindex="-1"
+                      aria-labelledby="modalMargheritaLabel"
+                      aria-hidden="true">
+                      <div className="modal-dialog">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5
+                              className="modal-title"
+                              id="modalMargheritaLabel">
+                              Classic Margherita
+                            </h5>
+                            <button
+                              type="button"
+                              className="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                          </div>
+                          <div className="modal-body text-center">
+                            <img
+                              src={recipe.image}
+                              className="img-fluid rounded-circle mb-3 w-50"
+                              alt="Pizza 1"
+                            />
+                            <p>
+                              Enjoy a classic Margherita pizza with fresh
+                              mozzarella, tomatoes, and basil for the perfect
+                              taste.
+                            </p>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-warning"
+                              data-bs-dismiss="modal">
+                              Close
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://img.freepik.com/premium-photo/fresh-homemade-italian-pizza-margherita-with-buffalo-mozzarella-basil_914391-415.jpg"
-                        className="img-fluid"
-                        alt="Pizza 3"
-                      />
-                    </div>
-                    <h5 className="mt-3">Veggie Delight</h5>
-                    <p>Crispy vegetables with a cheesy layer</p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹349
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalVeggie">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalVeggie"
-                  tabindex="-1"
-                  aria-labelledby="modalVeggieLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalVeggieLabel">
-                          Veggie Delight
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://img.freepik.com/premium-photo/fresh-homemade-italian-pizza-margherita-with-buffalo-mozzarella-basil_914391-415.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Pizza 3"
-                        />
-                        <p>
-                          Enjoy a delicious Veggie Delight pizza topped with
-                          crispy vegetables and a cheesy layer. Perfect for your
-                          cravings!
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://img.freepik.com/free-photo/side-view-pizza-with-chopped-pepper-board-cookware_176474-3183.jpg"
-                        className="img-fluid"
-                        alt="Pizza 4"
-                      />
-                    </div>
-                    <h5 className="mt-3">BBQ Chicken Pizza</h5>
-                    <p>Barbecue sauce with grilled chicken</p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹449
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalBBQ">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalBBQ"
-                  tabindex="-1"
-                  aria-labelledby="modalBBQLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalBBQLabel">
-                          BBQ Chicken Pizza
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://img.freepik.com/free-photo/side-view-pizza-with-chopped-pepper-board-cookware_176474-3183.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Pizza 4"
-                        />
-                        <p>
-                          Indulge in BBQ chicken pizza with rich barbecue sauce
-                          and grilled chicken.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section id="pizza-menu">
-            <div className="container">
-              <div className="row text-center">
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://www.foodiesfeed.com/wp-content/uploads/2023/06/pouring-honey-on-pancakes.jpg"
-                        className="img-fluid"
-                        alt="Pancakes with Honey"
-                      />
-                    </div>
-                    <h5 className="mt-3">Honey Pancakes</h5>
-                    <p>Fluffy pancakes topped with sweet honey drizzle</p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹299
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalPancakes">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalPancakes"
-                  tabindex="-1"
-                  aria-labelledby="modalPancakesLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalPancakesLabel">
-                          Honey Pancakes
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://www.foodiesfeed.com/wp-content/uploads/2023/06/pouring-honey-on-pancakes.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Pancakes with Honey"
-                        />
-                        <p>
-                          Enjoy warm, fluffy pancakes drizzled with golden honey
-                          for the perfect breakfast treat.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://img.freepik.com/premium-photo/large-bowl-food-with-fish-vegetables_197463-2405.jpg"
-                        className="img-fluid"
-                        alt="Fish and Vegetables"
-                      />
-                    </div>
-                    <h5 className="mt-3">Fish & Veggies Bowl</h5>
-                    <p>Healthy bowl of grilled fish and fresh vegetables</p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹399
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalFishBowl">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalFishBowl"
-                  tabindex="-1"
-                  aria-labelledby="modalFishBowlLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalFishBowlLabel">
-                          Fish & Veggies Bowl
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://img.freepik.com/premium-photo/large-bowl-food-with-fish-vegetables_197463-2405.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Fish and Vegetables"
-                        />
-                        <p>
-                          A nutritious bowl of grilled fish, paired with a
-                          medley of fresh vegetables for a wholesome meal.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://img.freepik.com/premium-photo/delicious-spaghetti-noodles-tomatoes-italian-food_812426-48623.jpg"
-                        className="img-fluid"
-                        alt="Spaghetti"
-                      />
-                    </div>
-                    <h5 className="mt-3">Italian Spaghetti</h5>
-                    <p>
-                      Classic Italian spaghetti with fresh tomatoes and herbs
-                    </p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹349
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalSpaghetti">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalSpaghetti"
-                  tabindex="-1"
-                  aria-labelledby="modalSpaghettiLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalSpaghettiLabel">
-                          Italian Spaghetti
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://img.freepik.com/premium-photo/delicious-spaghetti-noodles-tomatoes-italian-food_812426-48623.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Spaghetti"
-                        />
-                        <p>
-                          Experience the taste of Italy with this classic
-                          spaghetti, seasoned with herbs and topped with fresh
-                          tomatoes.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-3">
-                  <div className="pizza-box">
-                    <div className="image-container">
-                      <img
-                        src="https://cdn.pixabay.com/photo/2022/08/31/10/16/hamburger-7422961_960_720.jpg"
-                        className="img-fluid"
-                        alt="Hamburger"
-                      />
-                    </div>
-                    <h5 className="mt-3">Grilled Hamburger</h5>
-                    <p>
-                      Juicy grilled hamburger with fresh vegetables and BBQ
-                      sauce
-                    </p>
-                    <div className="button-container">
-                      <button className="btn btn-warning mb-2 px-4">
-                        ₹449
-                      </button>
-                      <button
-                        className="btn btn-danger add-to-cart"
-                        type="button"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modalBurger">
-                        Let's Enjoy Meal
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className="modal fade"
-                  id="modalBurger"
-                  tabindex="-1"
-                  aria-labelledby="modalBurgerLabel"
-                  aria-hidden="true">
-                  <div className="modal-dialog">
-                    <div className="modal-content">
-                      <div className="modal-header">
-                        <h5 className="modal-title" id="modalBurgerLabel">
-                          Grilled Hamburger
-                        </h5>
-                        <button
-                          type="button"
-                          className="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"></button>
-                      </div>
-                      <div className="modal-body text-center">
-                        <img
-                          src="https://cdn.pixabay.com/photo/2022/08/31/10/16/hamburger-7422961_960_720.jpg"
-                          className="img-fluid rounded-circle mb-3 w-50"
-                          alt="Hamburger"
-                        />
-                        <p>
-                          Enjoy a succulent grilled hamburger, served with crisp
-                          vegetables and tangy BBQ sauce.
-                        </p>
-                      </div>
-                      <div className="modal-footer">
-                        <button
-                          type="button"
-                          className="btn btn-warning"
-                          data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  </>
+                ))}
               </div>
             </div>
           </section>
