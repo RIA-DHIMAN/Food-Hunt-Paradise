@@ -1,10 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 const AuthNavbar = ({ setToken }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    toast.success("You are successfully logged out.");
     localStorage.clear();
     window.location.reload();
     navigate("/login");

@@ -9,6 +9,7 @@ import Register from "./Forms/Register";
 import Pizzainfo from "./Pages/Pizzainfo";
 import View from "./Innerpages/View";
 import AddToCart from "./Pages/Addcart";
+import { Toaster } from "react-hot-toast";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -30,7 +31,7 @@ function App() {
   return (
     <BrowserRouter>
       {token ? <AuthNavbar /> : <Navbar />}
-
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />

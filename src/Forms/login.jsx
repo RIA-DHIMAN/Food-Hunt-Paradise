@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Login = ({ setToken }) => {
   const navigate = useNavigate();
@@ -13,19 +14,20 @@ const Login = ({ setToken }) => {
     e.preventDefault();
 
     if (!storedData) {
-      alert("No user data found. Please create an account.");
+      toast.error("No user data found. Please create an account.");
       return;
     }
 
     if (storedData.email !== email) {
-      alert("Email not found.");
+      toast.error("Email not found.");
     } else if (storedData.password !== password) {
-      alert("Password is incorrect.");
+      toast.error("Password is incorrect.");
     } else {
       const token = "some-generated-token";
       localStorage.setItem("token", token);
       setToken(token);
       navigate("/pizzainfo");
+      toast.success("Successfully Login");
     }
   };
 

@@ -10,7 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
 
   const generateToken = () => {
-    return Math.random().toString(36).substr(2) + Date.now().toString(36);
+    return Math.random();
   };
 
   const handleSubmit = (e) => {
