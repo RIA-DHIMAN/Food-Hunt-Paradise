@@ -11,11 +11,13 @@ const Home = () => {
     try {
       const response = await fetch("https://dummyjson.com/recipes");
       const newData = await response.json();
-      setRecipes(newData.recipes);
+
+      setRecipes(newData.recipes.slice(0, 8)); // Fetching the first 8 recipes
     } catch (error) {
       console.log("Error fetching recipes:", error);
     }
   };
+
   return (
     <>
       <div>
@@ -36,7 +38,7 @@ const Home = () => {
                   Explore Our Menu
                 </a>
               </div>
-
+              {/* Carousel Section */}
               <div className="col-md-6">
                 <div
                   id="pizzaCarousel"
@@ -98,7 +100,7 @@ const Home = () => {
           </div>
         </section>
         <section id="pizza-menu">
-          <div className="container justify-content center text-center">
+          <div className="container justify-content-center text-center">
             <div className="heading">
               <h1 className="display-4 fw-bold text-warning">
                 True Italian Flavor
@@ -120,13 +122,13 @@ const Home = () => {
               <div className="row text-center">
                 {recipes.map((recipe, index) => (
                   <>
-                    <div className="col-md-3 mb-4" key={index}>
+                    <div className="col-md-3 mb-4" key={recipe.id || index}>
                       <div className="pizza-box">
                         <div className="image-container">
                           <img
                             src={recipe.image}
                             className="img-fluid"
-                            alt="Pizza 1"
+                            alt={recipe.name}
                           />
                         </div>
                         <h5 className="mt-3">{recipe.name}</h5>
@@ -139,26 +141,26 @@ const Home = () => {
                             className="btn btn-danger add-to-cart"
                             type="button"
                             data-bs-toggle="modal"
-                            data-bs-target="#modalMargherita">
-                            Let's Enjoy Meal
+                            data-bs-target={`#modal-${index}`}>
+                            View More
                           </button>
                         </div>
                       </div>
                     </div>
-
+                    {/* Modal */}
                     <div
                       className="modal fade"
-                      id="modalMargherita"
-                      tabindex="-1"
-                      aria-labelledby="modalMargheritaLabel"
+                      id={`modal-${index}`}
+                      tabIndex="-1"
+                      aria-labelledby={`modalLabel-${index}`}
                       aria-hidden="true">
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <div className="modal-header">
                             <h5
                               className="modal-title"
-                              id="modalMargheritaLabel">
-                              Classic Margherita
+                              id={`modalLabel-${index}`}>
+                              <i className="text-warning">FOOD HUNT PARADISE</i>
                             </h5>
                             <button
                               type="button"
@@ -170,13 +172,15 @@ const Home = () => {
                             <img
                               src={recipe.image}
                               className="img-fluid rounded-circle mb-3 w-50"
-                              alt="Pizza 1"
+                              alt={recipe.name}
                             />
-                            <p>
-                              Enjoy a classic Margherita pizza with fresh
-                              mozzarella, tomatoes, and basil for the perfect
-                              taste.
-                            </p>
+                            <p>{recipe.name}</p>
+                            <h5>Rating: {recipe.rating}⭐</h5>
+                            <b>
+                              <h5 className="text-warning">
+                                Review-count: {recipe.reviewCount}
+                              </h5>
+                            </b>
                           </div>
                           <div className="modal-footer">
                             <button
