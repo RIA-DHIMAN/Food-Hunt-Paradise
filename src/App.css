@@ -1,38 +1,259 @@
-.App {
-  text-align: center;
+body {
+  background-color: #f8f9fa;
+  font-family: sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#hero {
+  background-color: #f8f9fa;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+#hero h1 {
+  color: #ff5733;
+}
+
+#hero p {
+  color: #333;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 10s ease-in-out;
+}
+
+.carousel-item.active img {
+  animation: zoom-in 10s ease-in-out infinite;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.carousel-inner {
+  height: 100%;
+}
+
+.carousel {
+  animation: none;
+}
+
+#pizza-menu {
+  background-color: #f8f9fa;
+}
+
+.pizza-box {
+  position: relative;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+.pizza-box:hover {
+  transform: scale(1.05);
+}
+
+.pizza-box .image-container {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.pizza-box img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s ease;
+}
+
+.pizza-box:hover img {
+  transform: scale(1.2);
+}
+
+.pizza-box .button-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+}
+
+.add-to-cart {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.pizza-box:hover .add-to-cart {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pizza-box .btn-danger {
+  background-color: #ff5733;
+  border: none;
+}
+
+.pizza-box .btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.footer {
+  background-color: rgb(255, 8, 0);
+  background-image: url("https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?cs=srgb&dl=pexels-narda-yescas-724842-1566837.jpg&fm=jpg");
+  background-size: cover;
+  background-position: center;
   color: white;
+  padding: 50px 0;
+  position: relative;
+  z-index: 1;
 }
 
-.App-link {
-  color: #61dafb;
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 191, 0, 0.766);
+  z-index: -1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.footer h1 {
+  color: rgb(255, 0, 0);
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 900;
+}
+
+.footer p {
+  color: white;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer .heading {
+  margin-bottom: 30px;
+}
+
+.footer .row {
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .footer h1 {
+    font-size: 20px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .footer p {
+    font-size: 14px;
   }
+}
+.end {
+  height: 20vh;
+}
+.form {
+  box-shadow: 0px 0px 4px rgb(207, 206, 206);
+}
+.loader {
+  text-align: center;
+  padding: 20%;
+}
+.details {
+  background-color: #ffffff;
+  color: #2c3e50;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+.img-thumbnail {
+  border: 4px solid #f39c12;
+  transition: transform 0.3s ease;
+}
+
+.animated-image:hover {
+  transform: scale(1.1);
+}
+
+.list-group-item {
+  background-color: #f8f9fa;
+  border: none;
+  color: #343a40;
+  transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f39c12;
+  color: #ffffff;
+}
+
+.text-warning {
+  color: #f39c12;
+}
+/* Pizzainfo.css */
+
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 250px;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+}
+
+.flip-card-front {
+  background-color: #fff;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #e8d123c0;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
