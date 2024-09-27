@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Register = () => {
 
     localStorage.setItem("userData", JSON.stringify(RegisterData));
     localStorage.setItem("token", token);
-
+    toast.success("Your account has been registered.");
     navigate("/login");
   };
 

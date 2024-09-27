@@ -5,8 +5,8 @@ const AuthNavbar = ({ setToken }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    toast.success("You are successfully logged out.");
     localStorage.clear();
+    toast.success("You are successfully logged out.");
     window.location.reload();
     navigate("/login");
   };
