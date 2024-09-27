@@ -10,6 +10,7 @@ import Pizzainfo from "./Pages/Pizzainfo";
 import View from "./Innerpages/View";
 import AddToCart from "./Pages/Addcart";
 import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
@@ -22,7 +23,7 @@ function App() {
 
   const addToCart = (item) => {
     setCartItems((prevItems) => [...prevItems, item]);
-    alert("Item added to your Favourites");
+    toast.success("Item added to your Favourites");
   };
   const removeFromCart = (itemId) => {
     setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
